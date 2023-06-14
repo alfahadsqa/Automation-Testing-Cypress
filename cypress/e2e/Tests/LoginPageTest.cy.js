@@ -29,11 +29,11 @@ describe('LogInTest POM' , () =>{
             HomePage.SetUserName(data.username)
             HomePage.SetPassword(data.password);
             HomePage.ClickLogIn()
-            HomePage.VerifyLogIn()
-            cy.get('.left-side-content > a').click()
             Page.Wait()
-            cy.go('back')
-            cy.go('forward')
+            HomePage.VerifyLogIn()
+            Page.Wait()
+            Page.NavigateBack()
+         
 
 
             })

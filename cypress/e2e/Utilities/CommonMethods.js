@@ -13,6 +13,12 @@ class Methods
     {
         cy.reload()
     }
+    NavigateBack()
+    {
+        cy.go('back')
+    }
+
+    
 
 
 }
