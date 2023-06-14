@@ -25,8 +25,24 @@ class Login
     {
         cy.xpath("//p[@class='massage-invalid']").should('have.text', 'Invalid User Name or Password')
     }
-  
+    VerifyUnifyLogo()
+    {
+        cy.xpath("//div[@class='brand-logo']//*[name()='svg']").should('be.visible')
+    }
+    VerifyUnifyText()
+    {
+        cy.xpath("//span[normalize-space()='Unify']").should('be.visible')
+    }
     
+    VerifyUnifyWelcomeText()
+    {
+        cy.xpath("//h3[@class='login-sub-title mb-40']").should('be.visible')
+    }
+  
+    VerifyBackgroundImg()
+    {
+        cy.xpath("//aside[@class='login-graphics-panel']").should('be.visible')
+    }
 }
 
 export default Login
