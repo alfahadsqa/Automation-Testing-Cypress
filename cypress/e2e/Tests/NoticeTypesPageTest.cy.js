@@ -7,17 +7,16 @@ describe('Notice Types Page' , () =>{
 
         cy.visit("http://unifytest.julyservices.local/Unify.V2.Web/login")
 
-        cy.fixture('LogInData').then((data)  => {
+            const NoticeTypePage = new NoticeTypes();
+            const page = new Methods()
             const HomePage = new Login();
-            HomePage.SetUserName(data.username)
-            HomePage.SetPassword(data.password);
+            HomePage.SetUserName("aafahad")
+            HomePage.SetPassword("123");
             HomePage.ClickLogIn()
             page.Wait()
             HomePage.VerifyLogIn()
 
-            })
-            const NoticeTypePage = new NoticeTypes();
-            const page = new Methods()
+         
             NoticeTypePage.MainMenu()
             NoticeTypePage.SearchBox("Notice Types")
             page.Wait()
