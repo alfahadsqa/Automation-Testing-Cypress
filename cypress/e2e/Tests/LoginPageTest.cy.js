@@ -2,7 +2,7 @@
 import Login from "../Page Objects/LoginPage"
 import Methods from "../Utilities/CommonMethods"
 describe('LogInTest POM' , () =>{
-    it.only('LogInTest', () => {
+    it('LogInTest', () => {
 
         const HomePage = new Login();
         const Page = new Methods();
@@ -16,31 +16,38 @@ describe('LogInTest POM' , () =>{
             HomePage.VerifyUnifyText()
             HomePage.VerifyUnifyWelcomeText()
             HomePage.VerifyBackgroundImg()
-       
-            //verifying with invalid username and valid password
-            HomePage.SetUserName("abcd")
-            HomePage.SetPassword("123")
-            HomePage.ClickLogIn()
-            HomePage.GetAlertMessage()
-            Page.Reload()
-            Page.Wait()
-            //verifying with valid username and invalid password
-            HomePage.SetUserName("aafahad")
-            HomePage.SetPassword("55555555555")
-            HomePage.ClickLogIn()
-            HomePage.GetAlertMessage()
-            Page.Reload()
-            Page.Wait()
-            //verifying with valid username and valid password
-            HomePage.SetUserName(data.username)
-            HomePage.SetPassword(data.password);
-            HomePage.ClickLogIn()
-            Page.Wait()
-            HomePage.VerifyLogIn()
-            Page.Wait()
-            Page.NavigateBack()
-         
 
+            //verifying with valid/invalid username and valid/invalid password
+
+            data.forEach((userdata) => {
+            HomePage.SetUserName(userdata.username)
+            HomePage.SetPassword(userdata.password)
+            HomePage.ClickLogIn()
+            
+            if(userdata.username =='aafahad' && userdata.password == '123') {
+ 
+                Page.Wait()
+                HomePage.VerifyLogIn()
+                Page.Wait()
+                Page.NavigateBack()
+            }
+            else{
+                Page.Wait()
+                HomePage.GetAlertMessage()
+                Page.Reload()
+               
+            }
+
+
+            
+
+          
+           
+            
+            
+         
+        })
+    
 
             })
         })
