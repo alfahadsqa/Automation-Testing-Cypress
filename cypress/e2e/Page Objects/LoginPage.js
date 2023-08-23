@@ -1,48 +1,56 @@
 class Login
 {
 
+    VerifyLogo() 
+    {
+        cy.xpath("//img[@alt='logo']").should('be.visible') //logo img
+        cy.xpath("//h2[@class='mb-4']").should('have.text', 'Unify Recordkeeping') //logo text
+    }
+
+    VerifyBackgroundImg() 
+    {
+        cy.xpath("//div[@class='login-screen']").should('be.visible')
+    }
+    VerifyfooterText() 
+    {
+        cy.xpath("//div[@class='login-copyrights']").should('have.text', ' © 2023, July Business Services. ')
+    }
+    
+
     SetUserName(username) 
     {
-        cy.get(':nth-child(4) > .input-login').should('be.visible').type(username);
+        cy.xpath("//input[@placeholder='Enter username']").should('be.visible').type(username);
     }
 
     SetPassword(password) 
     {
-        cy.get(':nth-child(5) > .input-login').should('be.visible').type(password);
+        cy.xpath("//input[@placeholder='Enter password']").should('be.visible').type(password);
     }
 
     ClickLogIn() 
     {
-        cy.xpath("//button[@type='submit']").should('be.visible').click()
+        cy.xpath("//span[@class='p-button-label']").should('be.visible').click()
     }
 
     VerifyLogIn() 
     {
-        cy.xpath("/html/body/app-root/app-main-container-layout/div/section/app-landing-page/div/div[1]/span").should('have.text', 'Hi Abdullah Al Fahad, Welcome to Unify');
+        cy.xpath("//h1[@class='page-title']").should('have.text', 'Unify RK');
     }
 
-    GetAlertMessage()
+    GetAlertMessageForInvalidUsername()
     {
-        cy.xpath("//p[@class='massage-invalid']").should('have.text', 'Invalid User Name or Password')
+        cy.xpath("//small[normalize-space()='Email is required']").should('have.text', 'Email is required')
     }
-    VerifyUnifyLogo()
+    GetAlertMessageForInvalidUPassword()
     {
-        cy.xpath("//div[@class='brand-logo']//*[name()='svg']").should('be.visible')
+        cy.xpath("//small[normalize-space()='Password is required']").should('have.text', 'Password is required')
     }
-    VerifyUnifyText()
+    GetAlertMessageForBothWorng()
     {
-        cy.xpath("//span[normalize-space()='Unify']").should('be.visible')
+        cy.xpath("//p[normalize-space()='Username or Password Invalid!']").should('have.text', 'Username or Password Invalid!')
     }
+    Geta
     
-    VerifyUnifyWelcomeText()
-    {
-        cy.xpath("//h3[@class='login-sub-title mb-40']").should('be.visible')
-    }
-  
-    VerifyBackgroundImg()
-    {
-        cy.xpath("//aside[@class='login-graphics-panel']").should('be.visible')
-    }
 }
 
 export default Login

@@ -2,7 +2,8 @@ class Methods
 {   
     OpenBaseUrl()
     {
-        cy.visit("http://unifytest.julyservices.local/Unify.V2.Web/login")
+        cy.visit("http://testbear.julyservices.local:8080/auth/login")
+        //cy.visit("https://test-unifyrk-gateway.azurewebsites.net/auth/login")
     }
     Wait()
     {
@@ -13,12 +14,6 @@ class Methods
     {
         cy.reload()
     }
-    NavigateBack()
-    {
-        cy.go('back')
-    }
-
-    
 
 
 }

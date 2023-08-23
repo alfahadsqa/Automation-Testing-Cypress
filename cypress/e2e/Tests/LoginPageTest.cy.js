@@ -2,52 +2,44 @@
 import Login from "../Page Objects/LoginPage"
 import Methods from "../Utilities/CommonMethods"
 describe('LogInTest POM' , () =>{
-    it('LogInTest', () => {
+    it.only('LogInTest', () => {
 
         const HomePage = new Login();
         const Page = new Methods();
 
         Page.OpenBaseUrl()
-        Page.Wait()
 
         cy.fixture('LogInData').then((data)  => {
-
-            HomePage.VerifyUnifyLogo()
-            HomePage.VerifyUnifyText()
-            HomePage.VerifyUnifyWelcomeText()
+            //Veryfing logo"and background image
+            Page.Wait()
+            HomePage.VerifyLogo()
             HomePage.VerifyBackgroundImg()
-
-            //verifying with valid/invalid username and valid/invalid password
-
-            data.forEach((userdata) => {
-            HomePage.SetUserName(userdata.username)
-            HomePage.SetPassword(userdata.password)
+            HomePage.VerifyfooterText()
+            //Veryfing with balnk data
             HomePage.ClickLogIn()
-            
-            if(userdata.username =='aafahad' && userdata.password == '123') {
- 
-                Page.Wait()
-                HomePage.VerifyLogIn()
-                Page.Wait()
-                Page.NavigateBack()
-            }
-            else{
-                Page.Wait()
-                HomePage.GetAlertMessage()
-                Page.Reload()
-               
-            }
+            HomePage.GetAlertMessageForInvalidUsername()
+            HomePage.GetAlertMessageForInvalidUPassword()
+            Page.Reload()
+            Page.Wait()
+            //verfying with invalid username and valid password
+            HomePage.SetUserName("abc")
+            HomePage.ClickLogIn()
+            HomePage.GetAlertMessageForInvalidUPassword()
+            Page.Reload()
+            Page.Wait()
+            //verfying with valid username and invalid password
+            HomePage.SetPassword("55555555555")
+            HomePage.ClickLogIn()
+            HomePage.GetAlertMessageForInvalidUsername()
+            Page.Reload()
+            Page.Wait()
+            //verfying with valid username and valid password
+            HomePage.SetUserName(data.username)
+            HomePage.SetPassword(data.password);
+            HomePage.ClickLogIn()
+            HomePage.VerifyLogIn()
+            Page.Wait()
 
-
-            
-
-          
-           
-            
-            
-         
-        })
-    
 
             })
         })
