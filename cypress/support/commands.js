@@ -23,3 +23,19 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// Cypress.Commands.add('Login',(username,password)=>{
+
+//     cy.session(email,()=>{
+//       cy.visit("http://testbear.julyservices.local:8080/");
+//       cy.xpath("//input[@placeholder='Enter username']")
+//       .clear()
+//       .type(username)
+//     cy.get("//input[@placeholder='Enter password']")
+//       .clear()
+//       .type(password)
+//     cy.xpath("//span[@class='p-button-label']").click()
+  
+//     })
+      
+   
+//   })

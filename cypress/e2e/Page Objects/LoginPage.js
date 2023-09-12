@@ -49,7 +49,7 @@ class Login
     {
         cy.xpath("//p[normalize-space()='Username or Password Invalid!']").should('have.text', 'Username or Password Invalid!')
     }
-    Geta
+  
     
 }
 
