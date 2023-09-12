@@ -2,14 +2,14 @@ class InvestmentList
 {
     VerifyNavigation() 
     {
-        cy.xpath("//i[@class='jdsi-function']").should('be.visible').click()
+        cy.xpath("//i[@class='pi pi-bars']").should('be.visible').click()
         
     }
     VerifyInvestmentListBtn() 
 
     {
         cy.xpath("//span[normalize-space()='Investment']").should('have.text', 'Investment')
-        cy.xpath("//a[@href='/investment-app/investment-list']//i[@class='jdsi-palette mb-2']").click()
+        cy.xpath("//a[@href='/investment-app/investment-list']//i[@class='jdsi-palette mb-2']").click({force: true})
         
     }
     VerifyInvestmentListText() 
@@ -78,18 +78,18 @@ class InvestmentList
     VerifyEntriesNumberDropdown()
     {
         
-            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-6']").as('dropdown');
+            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-8']").as('dropdown');
         
             // Open the dropdown
-            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-6']").click();
+            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-8']").click();
             cy.wait(2000)
         
             // Verify the options
             cy.xpath("/html/body/app-root/lib-main-layout/div/app-app-layout/app-investment-list/div[2]/lib-table-footer/div/p-paginator/div/p-dropdown").click()
-            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-6']").click();
+            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-8']").click();
             cy.xpath("//li[@aria-label='25']").should('contain', '25').click();
             cy.wait(2000)
-            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-6']").click();
+            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-8']").click();
             cy.xpath("//li[@aria-label='50']").should('contain', '50').click();
             
             
@@ -147,8 +147,8 @@ class InvestmentList
         cy.xpath("//input[@formcontrolname='legalName']").clear().type('Test 8')  //legal name
         cy.xpath("//span[normalize-space()='Save']").click()
         cy.wait(2000)
-        cy.get('.ng-tns-c56-14.ng-trigger-toastAnimation > .ng-trigger > .p-toast-message-content > .p-toast-message-text > .p-toast-detail').should('have.text','Ticker already exists.')
-        cy.get('.ng-tns-c56-15.ng-trigger-toastAnimation > .ng-trigger > .p-toast-message-content > .p-toast-message-text > .p-toast-detail').should('have.text','CUSIP already exists.')
+        cy.get('.ng-tns-c56-16.ng-trigger-toastAnimation > .ng-trigger > .p-toast-message-content > .p-toast-message-text > .p-toast-detail').should('have.text','Ticker already exists.')
+        cy.get('.ng-tns-c56-17.ng-trigger-toastAnimation > .ng-trigger > .p-toast-message-content > .p-toast-message-text > .p-toast-detail').should('have.text','CUSIP already exists.')
 
 
     }

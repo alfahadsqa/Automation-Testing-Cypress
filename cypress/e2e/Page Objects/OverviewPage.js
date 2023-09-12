@@ -3,8 +3,8 @@ class Overview
 {
     CLickOnTicker()
     {
-        
-        cy.get(':nth-child(1) > [style="flex: 0 0 90px; width: 90px;"] > a').click() //click on VTSAX ticker
+        cy.wait(1000)
+        cy.xpath("//a[normalize-space()='VTSAX']").click({force: true}) //click on VTSAX ticker
         cy.wait(3000)
         cy.xpath("//a[@class='active']").should('have.text','Overview') //overview menu
     }
@@ -14,7 +14,7 @@ class Overview
         cy.xpath("//h2[normalize-space()='General Information']").should('have.text','General Information') //h1 text
         
         cy.get('app-investment-general > .rk-card').should('exist')
-        cy.xpath("//app-investment-general//i[@class='pi pi-pencil']").click() //clicking edit button
+        cy.xpath("//app-investment-general//i[@class='pi pi-pencil']").click({force: true}) //clicking edit button
         cy.wait(3000)
         cy.get('.p-dialog-content') //verifying table fields
         .then (item =>{
@@ -45,12 +45,13 @@ class Overview
       
       cy.xpath("//h2[normalize-space()='Trailing Returns']").should('be.visible')//Trailing Returns text
       cy.get('app-investment-trailing-return > .rk-card').should('exist') //Trailing Returns full
-      //Add Trailing Return  
-      cy.xpath("//app-investment-trailing-return//i[@class='pi pi-plus']").should('exist').click() //add button
+      //Add Trailing Return
+      cy.wait(1000)  
+      cy.xpath("//app-investment-trailing-return//i[@class='pi pi-plus']").click() //add button
       cy.xpath("//span[@class='p-button-icon pi pi-calendar']").should('be.visible').click() //calendar button
       cy.wait(2000)
       cy.xpath("//span[normalize-space()='Dec']").click() //selecting a month
-      cy.get(':nth-child(5) > .col > .input-area > .p-inputtext').clear().type(25) //Trailing Return 1 Year
+      cy.get(':nth-child(5) > .col > .input-area > .p-inputwrapper > .p-inputnumber > .p-inputtext').clear().type(25) //Trailing Return 1 Year
       cy.xpath("//span[normalize-space()='Cancel']").should('be.visible')
       cy.xpath("//button[@type='submit']").should('be.visible').click()
       cy.xpath("//span[@class='p-button-icon pi pi-calendar']").click()
@@ -63,7 +64,7 @@ class Overview
       //Edit Trailing Return
       cy.wait(1000);
       cy.xpath("//app-investment-trailing-return//a[@title='Edit']").should('be.visible').click() //edit button
-      cy.get(':nth-child(5) > .col > .input-area > .p-inputtext').clear().type(50)
+      cy.get(':nth-child(5) > .col > .input-area > .p-inputwrapper > .p-inputnumber > .p-inputtext').clear().type(50)
       cy.xpath("//button[@type='submit']").should('be.visible').click()
       cy.xpath("//span[@class='pi pi-times p-button-icon p-button-icon-left ng-star-inserted']").click()
       
@@ -71,7 +72,34 @@ class Overview
       
     }
 
+    VerifyStatus()
+    {
+      cy.xpath("//h2[normalize-space()='Status']").should('exist') //status h1
+      cy.xpath("//app-investment-status//a[@class='rk-btn rk-btn-edit']").should('be.visible').click({force: true}) //status edit button
+      cy.get('#inceptionDate > .p-calendar > .p-element > .p-button-icon').click() //Inception Date
+      cy.get(':nth-child(1) > :nth-child(2) > .p-ripple').click() //clicking on date
+      cy.xpath("//span[normalize-space()='Save']").click() //save btn
+      cy.get('.p-toast-detail').should('have.text','Updated Successfully!')
+      
 
+    }
+
+    VerifyInvestmentIDs()
+    {
+      cy.xpath("//h2[normalize-space()='Investment IDs']").should('exist') //InvestmentIDs h1
+      cy.xpath("//app-investment-id//i[@class='pi pi-pencil']").should('be.visible').click() //InvestmentIDs edit button
+      //verify with blank data
+      cy.get(':nth-child(1) > .input-area > .p-inputtext').clear() //ticker
+      cy.get(':nth-child(2) > .input-area > .p-inputtext').clear() //CUSIP
+      cy.xpath("//span[@class='pi pi-check p-button-icon p-button-icon-left ng-star-inserted']").click() //save btn
+      //verify with data
+      cy.get(':nth-child(1) > .input-area > .p-inputtext').clear().type('VTSAX') //ticker
+      cy.get(':nth-child(2) > .input-area > .p-inputtext').clear().type('922908728') //CUSIP
+      cy.xpath("//span[@class='pi pi-check p-button-icon p-button-icon-left ng-star-inserted']").click() //save btn
+      cy.get('.p-toast-detail').should('have.text','Updated Successfully!')
+
+
+    }
 
 
 

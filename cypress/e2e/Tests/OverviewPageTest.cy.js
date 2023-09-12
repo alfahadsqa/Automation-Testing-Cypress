@@ -29,6 +29,8 @@ describe('Overview POM' , () =>{
         OverviewPage.CLickOnTicker()
         OverviewPage.VerifyGeneralInformation()
         OverviewPage.VerifyTrailingReturns()
+        OverviewPage.VerifyStatus()
+        OverviewPage.VerifyInvestmentIDs()
         
         })
        
