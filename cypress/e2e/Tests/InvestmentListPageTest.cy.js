@@ -30,6 +30,7 @@ describe('Investment List POM' , () =>{
         Page.Wait()
         InvestmentListPage.VerifySorting()
         InvestmentListPage.VerifyEntriesNumberDropdown()
+        InvestmentListPage.VerifyNextPage()
         InvestmentListPage.VerifyRefreshBtn()
         InvestmentListPage.VerifyExcelBtn()
         Page.Wait()

@@ -9,11 +9,11 @@ class Login
 
     VerifyBackgroundImg() 
     {
-        cy.xpath("//div[@class='login-screen']").should('be.visible')
+        cy.xpath("//div[@class='login-screen']").should('be.visible') 
     }
     VerifyfooterText() 
     {
-        cy.xpath("//div[@class='login-copyrights']").should('have.text', ' © 2023, July Business Services. ')
+        cy.xpath("//div[@class='login-copyrights']").should('have.text', ' © 2024, July Business Services. ')
     }
     
 
@@ -29,11 +29,12 @@ class Login
 
     ClickLogIn() 
     {
-        cy.xpath("//span[@class='p-button-label']").should('be.visible').click()
+        cy.xpath("//span[@class='p-button-label ng-star-inserted']").should('be.visible').click() //login button
     }
 
     VerifyLogIn() 
     {
+        cy.wait(1000)
         cy.xpath("//h1[@class='page-title']").should('have.text', 'Unify RK');
     }
 
@@ -49,7 +50,7 @@ class Login
     {
         cy.xpath("//p[normalize-space()='Username or Password Invalid!']").should('have.text', 'Username or Password Invalid!')
     }
-    Geta
+  
     
 }
 

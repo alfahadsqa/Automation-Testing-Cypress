@@ -2,9 +2,12 @@ import Login from "../Page Objects/LoginPage"
 import Methods from "../Utilities/CommonMethods"
 import InvestmentList from "../Page Objects/InvestmentListPage"
 import Overview from "../Page Objects/OverviewPage"
-describe('Overview POM' , () =>{
-    it.only('Overview Page Test', () => {
+import PlanAssociation from "../Page Objects/PlanAssociationPage"
 
+
+describe('Plan Association POM' , () =>{
+    it.only('Plan Association Page Test', () => {
+        const PlanAssociationPage = new PlanAssociation(); 
         const OverviewPage = new Overview();
         const InvestmentListPage = new InvestmentList();
         const HomePage = new Login();
@@ -22,18 +25,16 @@ describe('Overview POM' , () =>{
 
             })
 
-        InvestmentListPage.VerifyNavigation()
+        InvestmentListPage.VerifyNavigation();
         Page.Wait()
-        InvestmentListPage.VerifyInvestmentListBtn()
+        InvestmentListPage.VerifyInvestmentListBtn();
         Page.Wait()
-        OverviewPage.CLickOnTicker()
-        OverviewPage.VerifyGeneralInformation()
-        OverviewPage.VerifyTrailingReturns()
-        OverviewPage.VerifyStatus()
-        OverviewPage.VerifyInvestmentIDs()
-        
+        OverviewPage.CLickOnTicker();
+        PlanAssociationPage.ClickOnPlanAssociation();
+        PlanAssociationPage.VerifyPlanAssociation();
+
         })
        
        
 
-    })   
+    }) 

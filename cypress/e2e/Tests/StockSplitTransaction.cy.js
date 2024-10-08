@@ -1,14 +1,15 @@
 import Login from "../Page Objects/LoginPage"
 import Methods from "../Utilities/CommonMethods"
 import InvestmentList from "../Page Objects/InvestmentListPage"
-import Overview from "../Page Objects/OverviewPage"
-describe('Overview POM' , () =>{
-    it.only('Overview Page Test', () => {
+import transactions from "../Page Objects/TransactionsPage"
 
-        const OverviewPage = new Overview();
+describe('Investment List POM' , () =>{
+    it.only('Investment List Test', () => {
+
         const InvestmentListPage = new InvestmentList();
         const HomePage = new Login();
         const Page = new Methods();
+        const TransactionsPage = new transactions();
         Page.OpenBaseUrl()
 
         cy.fixture('LogInData').then((data)  => {
@@ -17,23 +18,19 @@ describe('Overview POM' , () =>{
             HomePage.SetPassword(data.password);
             HomePage.ClickLogIn()
             HomePage.VerifyLogIn()
-            Page.Wait()
+            Page.Wait()  
 
 
-            })
+        })
 
         InvestmentListPage.VerifyNavigation()
         Page.Wait()
-        InvestmentListPage.VerifyInvestmentListBtn()
+        TransactionsPage.ClickOnTransactionsBtn()
         Page.Wait()
-        OverviewPage.CLickOnTicker()
-        OverviewPage.VerifyGeneralInformation()
-        OverviewPage.VerifyTrailingReturns()
-        OverviewPage.VerifyStatus()
-        OverviewPage.VerifyInvestmentIDs()
-        
-        })
+        TransactionsPage.ClickOnAddTransactionsBtn()
+        TransactionsPage.ClickOnAddStockSplitBtn()
+        TransactionsPage.TestStockSplitProcess()
        
-       
+    })
 
-    })   
+    })    

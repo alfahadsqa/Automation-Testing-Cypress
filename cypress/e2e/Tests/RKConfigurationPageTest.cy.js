@@ -2,9 +2,13 @@ import Login from "../Page Objects/LoginPage"
 import Methods from "../Utilities/CommonMethods"
 import InvestmentList from "../Page Objects/InvestmentListPage"
 import Overview from "../Page Objects/OverviewPage"
-describe('Overview POM' , () =>{
-    it.only('Overview Page Test', () => {
+import PriceHistory from "../Page Objects/PriceHistoryPage"
+import RKConfiguration from "../Page Objects/RKConfigurationPage"
 
+describe('RK Configuration POM' , () =>{
+    it.only('RK Configuration Page Test', () => {
+        const RKConfigurationPage = new RKConfiguration(); 
+        const PriceHistoryPage = new PriceHistory();
         const OverviewPage = new Overview();
         const InvestmentListPage = new InvestmentList();
         const HomePage = new Login();
@@ -22,16 +26,17 @@ describe('Overview POM' , () =>{
 
             })
 
-        InvestmentListPage.VerifyNavigation()
+        InvestmentListPage.VerifyNavigation();
         Page.Wait()
-        InvestmentListPage.VerifyInvestmentListBtn()
+        InvestmentListPage.VerifyInvestmentListBtn();
         Page.Wait()
-        OverviewPage.CLickOnTicker()
-        OverviewPage.VerifyGeneralInformation()
-        OverviewPage.VerifyTrailingReturns()
-        OverviewPage.VerifyStatus()
-        OverviewPage.VerifyInvestmentIDs()
-        
+        OverviewPage.CLickOnTicker();
+        PriceHistoryPage.ClickOnPriceHistory();
+        RKConfigurationPage.ClickOnRKConfiguration();
+        RKConfigurationPage.VerifyGeneralSettings();
+        RKConfigurationPage.VerifyTargetRetirement();
+        RKConfigurationPage.VerifyTradeRestrictions()
+
         })
        
        

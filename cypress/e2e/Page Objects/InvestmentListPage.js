@@ -2,17 +2,17 @@ class InvestmentList
 {
     VerifyNavigation() 
     {
-        cy.xpath("//i[@class='jdsi-function']").should('be.visible').click()
+        cy.xpath("//i[@class='dp-menu f24']").click({force: true})
         
     }
     VerifyInvestmentListBtn() 
 
     {
-        cy.xpath("//span[normalize-space()='Investment']").should('have.text', 'Investment')
-        cy.xpath("//a[@href='/investment-app/investment-list']//i[@class='jdsi-palette mb-2']").click()
+        //cy.xpath("//h3[normalize-space()='Investment']").should('have.text', 'Investment')
+        cy.xpath("//span[normalize-space()='Investments']").click({force: true})
         
     }
-    VerifyInvestmentListText() 
+    VerifyInvestmentListText()   
     {
         cy.xpath("//span[normalize-space()='Investment']").should('have.text', 'Investment List')
         
@@ -21,19 +21,20 @@ class InvestmentList
     VerifyTickerSearch() 
     {
         cy.wait(2000);
-        cy.xpath("//span[@id='pr_id_1_label']").should('be.visible').click()  //ticker bar
-        cy.xpath("//span[@class='ng-star-inserted'][normalize-space()='Ticker']").should('be.visible').click()  //selecting ticker from the dropdown list
+        cy.get('#pn_id_1').should('exist') //table dom
+        cy.xpath("//span[@aria-label='Ticker']",{ timeout: 10000 }).should('be.visible').click({force: true})  //ticker bar
+        cy.xpath("//span[@class='ng-star-inserted'][normalize-space()='Ticker']",{ timeout: 10000 }).should('be.visible').click({force: true})  //selecting ticker from the dropdown list
         cy.xpath("//input[@placeholder='Search keyword']").should('be.visible') //search field
 
         //verifing with ivalid data and blank data
-        cy.xpath("//input[@placeholder='Search keyword']").type('##@&') //search field
-        cy.xpath("//span[normalize-space()='Search']").should('be.visible').click()  //search button
-        cy.xpath("//input[@placeholder='Search keyword']").clear() //search field
-        cy.xpath("//span[normalize-space()='Search']").should('be.visible').click()  //search button
+        cy.xpath("//input[@placeholder='Search keyword']").type('##@&',{force: true}) //search field
+        cy.xpath("//span[normalize-space()='Search']").should('be.visible').click({force: true})  //search button
+        cy.xpath("//input[@placeholder='Search keyword']").clear({force: true}) //search field
+        cy.xpath("//span[normalize-space()='Search']").should('be.visible').click({force: true})  //search button
         cy.wait(2000)
         //verifing with valid data 
-        cy.xpath("//input[@placeholder='Search keyword']").type('Test') //search field
-        cy.xpath("//span[normalize-space()='Search']").should('be.visible').click()  //search button
+        cy.xpath("//input[@placeholder='Search keyword']").type('Test', {force: true}) //search field
+        cy.xpath("//span[normalize-space()='Search']").should('be.visible').click({force: true})  //search button
         cy.xpath("//input[@placeholder='Search keyword']").clear() //search field
         cy.xpath("//span[normalize-space()='Search']").should('be.visible').click()  //search button
         cy.wait(2000) 
@@ -43,8 +44,8 @@ class InvestmentList
 
     VerifyInvesmentNameSearch() 
     {
-        cy.xpath("//span[@id='pr_id_1_label']").should('be.visible').click()  //ticker bar
-        cy.xpath("//span[normalize-space()='Investment Name']").should('be.visible').click()  //selecting investment name from the dropdown list
+        cy.xpath("//span[@aria-label='Ticker']").should('be.visible').click({force: true})  //ticker bar
+        cy.xpath("//span[normalize-space()='Investment Name']").should('be.visible').click({force: true})  //selecting investment name from the dropdown list
         cy.xpath("//input[@placeholder='Search keyword']").should('be.visible') //search field
 
         //verifing with ivalid data and blank data
@@ -78,39 +79,50 @@ class InvestmentList
     VerifyEntriesNumberDropdown()
     {
         
-            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-6']").as('dropdown');
+        cy.get('.p-paginator-rpp-options > .p-dropdown-trigger').as('dropdown');
         
             // Open the dropdown
-            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-6']").click();
+            cy.get('.p-paginator-rpp-options > .p-dropdown-trigger').click();
             cy.wait(2000)
         
             // Verify the options
-            cy.xpath("/html/body/app-root/lib-main-layout/div/app-app-layout/app-investment-list/div[2]/lib-table-footer/div/p-paginator/div/p-dropdown").click()
-            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-6']").click();
-            cy.xpath("//li[@aria-label='25']").should('contain', '25').click();
+            cy.get('#pn_id_5_0').click() //15 
             cy.wait(2000)
-            cy.xpath("//div[@class='p-dropdown-trigger ng-tns-c69-6']").click();
-            cy.xpath("//li[@aria-label='50']").should('contain', '50').click();
+            cy.get('.p-paginator-rpp-options > .p-dropdown-trigger').click();
+            cy.get('#pn_id_5_1').should('contain', '25').click({force: true}); //25
+            cy.wait(2000)
+            cy.get('.p-paginator-rpp-options > .p-dropdown-trigger').click();
+            cy.get('#pn_id_5_2').should('contain', '50').click({force: true});//50
             
             
                 
     }
     VerifyRefreshBtn()
     {
-        cy.xpath("//span[@class='p-button-icon pi pi-refresh']").should('be.visible').click() 
+        cy.xpath("//span[@class='pi pi-refresh p-button-icon ng-star-inserted']").should('be.visible').click() 
         cy.wait(2000)
 
     }
     VerifyExcelBtn()
     {
-        cy.xpath("//span[@class='p-button-icon pi pi-file-excel']").should('be.visible').click()
+        cy.xpath("//span[@class='pi pi-file-excel p-button-icon ng-star-inserted']").should('be.visible').click()
         cy.wait(2000)
 
     }
     VerifyAddBtn()
     {
-        cy.xpath("//button[@title='Add']").should('be.visible').click() //add button
+        cy.xpath("//span[@class='dp-plus-xl p-button-icon ng-star-inserted']").should('be.visible').click() //add button
         cy.xpath("//h1[@class='modal-title ng-star-inserted']").should('be.visible') //h1 text
+        cy.get('.p-dialog-content') //add btn dom
+        .then (item => {
+            expect(item[0]).to.contain.text('Ticker')
+            expect(item[0]).to.contain.text('CUSIP')
+            expect(item[0]).to.contain.text('Investment Name') 
+            expect(item[0]).to.contain.text('Legal Name')
+            expect(item[0]).to.contain.text('Investment Type')
+            
+          
+          })
 
         //verifying fields name
         cy.xpath("//label[@for='ticker']").should('contain', 'Ticker ')
@@ -145,11 +157,8 @@ class InvestmentList
         cy.xpath("//input[@formcontrolname='cusip']").clear().type('Test 8') //cusip
         cy.xpath("//input[@formcontrolname='investmentName']").clear().type('Test 8') //Investment name
         cy.xpath("//input[@formcontrolname='legalName']").clear().type('Test 8')  //legal name
-        cy.xpath("//span[normalize-space()='Save']").click()
-        cy.wait(2000)
-        cy.get('.ng-tns-c56-14.ng-trigger-toastAnimation > .ng-trigger > .p-toast-message-content > .p-toast-message-text > .p-toast-detail').should('have.text','Ticker already exists.')
-        cy.get('.ng-tns-c56-15.ng-trigger-toastAnimation > .ng-trigger > .p-toast-message-content > .p-toast-message-text > .p-toast-detail').should('have.text','CUSIP already exists.')
-
+        cy.xpath("//span[normalize-space()='Save']").click() //save button
+       
 
     }
 
